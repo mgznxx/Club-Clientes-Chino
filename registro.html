@@ -32,7 +32,7 @@
     </p>
   </div>
 
-   <script>
+    <script>
   function registrarCliente() {
     const telefono = document.getElementById("telefono").value;
 
@@ -41,14 +41,17 @@
       return;
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbwe9bn_V1ZoCrEItfghHIyytkCDlGhQst0DOdJlbr-ZUrMpj3dxRLWYJVFQf38qu-rA/exec" , {
+    fetch("https://script.google.com/macros/s/AKfycbyI2SyYv9CbzvU9OL62bF3sHUqqUpTibSCbBv9CwkWvsYT0ctytbXA--l6pShnRR1En/exec", {
       method: "POST",
-      body: JSON.stringify({
-        telefono: telefono
-      })
+      body: JSON.stringify({ telefono: telefono })
     })
-    .then(() => {
-      alert("¡Registrado con éxito! 🎉");
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "nuevo") {
+        alert("🎉 ¡Registro exitoso!");
+      } else if (data.status === "duplicado") {
+        alert("⚠️ Ya estabas registrado");
+      }
       document.getElementById("telefono").value = "";
     })
     .catch(() => {
@@ -56,6 +59,7 @@
     });
   }
 </script>
+
 
 
 </body>
