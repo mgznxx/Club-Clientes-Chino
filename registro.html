@@ -32,33 +32,33 @@
     </p>
   </div>
 
-    <script>
-  function registrarCliente() {
-    const telefono = document.getElementById("telefono").value;
+  <script>
+function registrarCliente() {
+  const telefono = document.getElementById("telefono").value.trim();
 
-    if (telefono.trim() === "") {
-      alert("Ingresá tu celular");
-      return;
-    }
-
-    fetch("https://script.google.com/macros/s/AKfycbzlV2nUdaLYQVcyAOEnMeI7iC9AZ7XFQM3IU0xKLWF3KI7CtNjBynrzGK0CJ1KLaoJp/exec", {
-      method: "POST",
-      body: JSON.stringify({ telefono: telefono })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === "nuevo") {
-        alert("🎉 ¡Registro exitoso!");
-      } else if (data.status === "duplicado") {
-        alert("⚠️ Ya estabas registrado");
-      }
-      document.getElementById("telefono").value = "";
-    })
-    .catch(() => {
-      alert("Error al registrar");
-    });
+  if (telefono === "") {
+    alert("Ingresá tu celular");
+    return;
   }
+
+  fetch("https://script.google.com/macros/s/AKfycbyNpGQPT_9sCEErYBJuPiMhdn00VzFscO7fOLd0OGj0u5OH2SPMB3Oe9SOWYCk_2i1j/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "telefono=" + encodeURIComponent(telefono)
+  })
+  .then(res => res.text())
+  .then(msg => {
+    document.getElementById("resultado").innerText = msg;
+  })
+  .catch(err => {
+    alert("Error al registrar");
+    console.error(err);
+  });
+}
 </script>
+
 
 
 
