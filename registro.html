@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Club de Clientes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎉 Club de Clientes</h1>
+
+    <p class="subtitle">
+      Escaneaste el QR.<br>
+      Sumate y participá de premios.
+    </p>
+
+    <input 
+      type="tel"
+      id="telefono"
+      placeholder="Tu celular (ej: 11XXXXXXXX)"
+    >
+
+    <button class="btn-grande" onclick="registrarCliente()">
+  REGISTRATE
+    </button>
+
+    <p class="small">
+      No necesitás descargar nada.<br>
+      Solo WhatsApp.
+    </p>
+  </div>
+
+   <script>
+  function registrarCliente() {
+    const telefono = document.getElementById("telefono").value;
+
+    if (telefono.trim() === "") {
+      alert("Ingresá tu celular");
+      return;
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbwe9bn_V1ZoCrEItfghHIyytkCDlGhQst0DOdJlbr-ZUrMpj3dxRLWYJVFQf38qu-rA/exec" , {
+      method: "POST",
+      body: JSON.stringify({
+        telefono: telefono
+      })
+    })
+    .then(() => {
+      alert("¡Registrado con éxito! 🎉");
+      document.getElementById("telefono").value = "";
+    })
+    .catch(() => {
+      alert("Error al registrar");
+    });
+  }
+</script>
+
+
+</body>
+</html>

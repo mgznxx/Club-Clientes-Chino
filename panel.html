@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel - Club de Clientes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>🧾 Panel</h1>
+
+    <p class="subtitle">
+      Ingresá el celular del cliente<br>
+      para sumar un punto
+    </p>
+
+    <input 
+      type="tel"
+      id="telefonoCliente"
+      placeholder="Celular del cliente"
+    >
+
+    <button onclick="sumarPunto()">
+      ➕ Sumar punto
+    </button>
+
+    <p class="small">
+      (Versión simple)
+    </p>
+  </div>
+
+  <script>
+    function sumarPunto() {
+      const telefono = document.getElementById("telefonoCliente").value;
+
+      if (telefono.trim() === "") {
+        alert("Ingresá el celular");
+        return;
+      }
+
+      // 👉 más adelante acá sumamos puntos en la planilla
+
+      alert("Punto sumado al cliente " + telefono);
+
+      document.getElementById("telefonoCliente").value = "";
+    }
+  </script>
+
+</body>
+</html>
