@@ -33,29 +33,18 @@
   </div>
 
  <script>
-  function registrarCliente() {
-    const telefono = document.getElementById("telefono").value;
-
-    if (telefono.trim() === "") {
-      alert("Ingresá tu celular");
-      return;
-    }
-
-    fetch("https://script.google.com/macros/s/AKfycbzYXBtoDOoYquDLKegQtIvYteCxDH4lZKoSvtTE3bXRdavr-huLNeG8K90Pl3IX_aTX/exec", {
-      method: "POST",
-      body: JSON.stringify({
-        telefono: telefono
-      })
-    })
-    .then(() => {
-      alert("¡Registrado con éxito! 🎉");
-      document.getElementById("telefono").value = "";
-    })
-    .catch(() => {
-      alert("Error al registrar");
-    });
+function registrarCliente() {
+  const telefono = document.getElementById("telefono").value.trim();
+  if (!telefono) {
+    alert("Ingresá tu celular");
+    return;
   }
+
+  window.location.href =
+    "https://script.google.com/macros/s/AKfycbzD-FUdbVhKmI8PmojMr06WuhTRatnyogctrDfl8RQE2C3JUk5bJG7jBp9DhmGqYPuw/exec?telefono=" + encodeURIComponent(telefono);
+}
 </script>
+
 
 
 
