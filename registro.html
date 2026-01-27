@@ -1,52 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Club de Clientes</title>
+  <title>Registro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>🎉 Club de Clientes</h1>
+<h2>Sumá tu punto</h2>
 
-    <p class="subtitle">
-      Escaneaste el QR.<br>
-      Sumate y participá de premios.
-    </p>
+<input id="telefono" placeholder="Tu celular">
+<br><br>
 
-    <input 
-      type="tel"
-      id="telefono"
-      placeholder="Tu celular (ej: 11XXXXXXXX)"
-    >
+<button onclick="registrar()">Registrarme</button>
 
-    <button class="btn-grande" onclick="registrarCliente()">
-  REGISTRATE
-    </button>
+<script>
+function registrar() {
+  const tel = document.getElementById("telefono").value;
 
-    <p class="small">
-      No necesitás descargar nada.<br>
-      Solo WhatsApp.
-    </p>
-  </div>
-
-   <script>
-function sumarPunto() {
-  const telefono = document.getElementById("telefono").value;
-
-  if (!telefono) {
+  if (!tel) {
     alert("Ingresá tu celular");
     return;
   }
 
   const url =
-    "https://script.google.com/macros/s/AKfycbxeBOFCd86-ENPbcwOciWJojHj0w7GrlOSEW5GWHC7KUp2iEox6t9YJg6i5Dt4mPkou/exec?telefono=" + telefono;
+    "https://script.google.com/macros/s/AKfycbzG75wPHifKAlmmeLVjFz0R5Vqry8zeWRTafu0EqGgo26zDqViQsNHzbBRCwQuSMvSd/exec?telefono=" + tel;
 
   window.location.href = url;
 }
 </script>
+
+</body>
+</html>
 
 
 
