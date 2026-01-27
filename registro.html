@@ -1,45 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Registro</title>
+  <title>Club de Clientes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Sumá tu punto</h2>
+  <div class="container">
+    <h1>🎉 Club de Clientes</h1>
 
-<input id="telefono" placeholder="Tu celular">
-<br><br>
+    <p class="subtitle">
+      Escaneaste el QR.<br>
+      Sumate y participá de premios.
+    </p>
 
-<button onclick="registrar()">Registrarme</button>
+    <input 
+      type="tel"
+      id="telefono"
+      placeholder="Tu celular (ej: 11XXXXXXXX)"
+    >
 
-<script>
-function registrar() {
-  const tel = document.getElementById("telefono").value;
+    <button onclick="registrarCliente()">
+      Unirme
+    </button>
 
-  if (!tel) {
-    alert("Ingresá tu celular");
-    return;
+    <p class="small">
+      No necesitás descargar nada.<br>
+      Solo WhatsApp.
+    </p>
+  </div>
+
+ <script>
+  function registrarCliente() {
+    const telefono = document.getElementById("telefono").value;
+
+    if (telefono.trim() === "") {
+      alert("Ingresá tu celular");
+      return;
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbzYXBtoDOoYquDLKegQtIvYteCxDH4lZKoSvtTE3bXRdavr-huLNeG8K90Pl3IX_aTX/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        telefono: telefono
+      })
+    })
+    .then(() => {
+      alert("¡Registrado con éxito! 🎉");
+      document.getElementById("telefono").value = "";
+    })
+    .catch(() => {
+      alert("Error al registrar");
+    });
   }
-
-  const url =
-    "https://script.google.com/macros/s/AKfycbzG75wPHifKAlmmeLVjFz0R5Vqry8zeWRTafu0EqGgo26zDqViQsNHzbBRCwQuSMvSd/exec?telefono=" + tel;
-
-  window.location.href = url;
-}
 </script>
 
-</body>
-</html>
-
-
-
-
-
-
-
 
 </body>
 </html>
+
