@@ -34,37 +34,27 @@
 
  <script>
 function registrarCliente() {
-  const telefono = document.getElementById("telefono").value;
+  const telefono = document.getElementById("telefono").value.trim();
 
-  if (telefono.trim() === "") {
+  if (!telefono) {
     alert("Ingresá tu celular");
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbxH1XzMqCz05MljEjmbVvs6C3dkcCc3Wi15Iewds6m0yAjgT9nef-uthh0puTEecW0w/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbycB07QSx3qwZ7QgPck_kZ2QQmCcXK61-Oe4DLpnbctw-iTLm_NI3prDbu2Mr8QllsF/exec", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      telefono: telefono,
-      origen: "QR"
-    })
+    body: JSON.stringify({ telefono })
   })
-  .then(() => {
-  const mensaje = "Gracias por registrarte 🎉 Sumaste 1 punto";
-  const wa = "https://wa.me/5491136718516?text=" + encodeURIComponent(mensaje);
-  window.location.href = wa;
-})
-
-  .catch(err => {
-    alert("Error al registrar");
-    console.error(err);
-  });
+  .then(r => r.text())
+  .then(txt => {
+    const msg = txt.split("|")[1] || "Gracias 🙂";
+    window.location.href =
+      "https://wa.me/5491136718516?text=" +
+      encodeURIComponent(msg);
+  })
+  .catch(() => alert("Error al registrar"));
 }
 </script>
-
-
 
 
 </body>
