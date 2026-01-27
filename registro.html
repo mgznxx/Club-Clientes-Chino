@@ -33,42 +33,30 @@
   </div>
 
   <script>
-function registrarCliente() {
-  const telefono = document.getElementById("telefono").value.trim();
+async function sumarPunto() {
+  const telefono = document.getElementById("telefono").value;
+  const url = "https://script.google.com/macros/s/AKfycbzKfTEl4y2uDQR7ky5HbHWoFCmr2nmeCuFyePtuv8c4cnHtZvE5ANuMVWIl8VdmPGLw/exec?telefono=" + telefono;
 
-  if (telefono === "") {
-    alert("Ingresá tu celular");
-    return;
+  const res = await fetch(url);
+  const texto = await res.text();
+
+  let mensaje = "";
+
+  if (texto.startsWith("OK")) {
+    const puntos = texto.split("|")[1];
+    mensaje = `✅ Gracias por tu compra\nSumaste 1 punto\n🎁 Total: ${puntos} puntos`;
+  } else if (texto.startsWith("REPETIDO")) {
+    const puntos = texto.split("|")[1];
+    mensaje = `⏳ Ya sumaste hace poco\n🎁 Tenés ${puntos} puntos`;
+  } else {
+    mensaje = "❌ Error al registrar";
   }
 
-  const urlScript = "https://script.google.com/macros/s/AKfycbzkWq05Lf1TDpPOUM6uSkFL_RgYkw-TgC6whRH3Cod8KZ5Jgw6xWe6kRMQXuY-sXt5y/exec" + "?telefono=" + encodeURIComponent(telefono);
-
-  fetch(urlScript)
-    .then(res => res.text())
-    .then(msg => {
-      // Mostrar mensaje brevemente (opcional)
-      document.getElementById("resultado").innerText = msg;
-
-      // 👉 Abrir WhatsApp con el resultado
-      const telefonoComercio = "54911XXXXXXXX"; // chino
-      const mensaje = encodeURIComponent(
-        "Hola 👋\n" +
-        msg + "\n" +
-        "Gracias por tu compra 🙌"
-      );
-
-      // pequeño delay para que se vea el mensaje
-      setTimeout(() => {
-        window.location.href =
-          "https://wa.me/" + telefonoComercio + "?text=" + mensaje;
-      }, 800);
-    })
-    .catch(err => {
-      alert("Error al registrar");
-      console.error(err);
-    });
+  const wa = "https://wa.me/5491136718516?text=" + encodeURIComponent(mensaje);
+  window.location.href = wa;
 }
 </script>
+
 
 
 
