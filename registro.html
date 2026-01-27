@@ -41,7 +41,7 @@ function registrarCliente() {
     return;
   }
 
-  const urlScript = "TU_URL_DEL_SCRIPT" + "?telefono=" + encodeURIComponent(telefono);
+  const urlScript = "https://script.google.com/macros/s/AKfycbzkWq05Lf1TDpPOUM6uSkFL_RgYkw-TgC6whRH3Cod8KZ5Jgw6xWe6kRMQXuY-sXt5y/exec" + "?telefono=" + encodeURIComponent(telefono);
 
   fetch(urlScript)
     .then(res => res.text())
