@@ -41,12 +41,27 @@ function registrarCliente() {
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbyvhG9VhLjH4FlNcnT0Yg2vA2JTvyowu3uggwzsxkQnEiRIiIoPL0i3Q6012s8hAbfT/exec" + "?telefono=" + encodeURIComponent(telefono);
+  const urlScript = "TU_URL_DEL_SCRIPT" + "?telefono=" + encodeURIComponent(telefono);
 
-  fetch(url)
+  fetch(urlScript)
     .then(res => res.text())
     .then(msg => {
+      // Mostrar mensaje brevemente (opcional)
       document.getElementById("resultado").innerText = msg;
+
+      // 👉 Abrir WhatsApp con el resultado
+      const telefonoComercio = "54911XXXXXXXX"; // chino
+      const mensaje = encodeURIComponent(
+        "Hola 👋\n" +
+        msg + "\n" +
+        "Gracias por tu compra 🙌"
+      );
+
+      // pequeño delay para que se vea el mensaje
+      setTimeout(() => {
+        window.location.href =
+          "https://wa.me/" + telefonoComercio + "?text=" + mensaje;
+      }, 800);
     })
     .catch(err => {
       alert("Error al registrar");
@@ -54,6 +69,7 @@ function registrarCliente() {
     });
 }
 </script>
+
 
 
 
