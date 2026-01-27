@@ -43,18 +43,25 @@ function registrarCliente() {
 
   fetch("https://script.google.com/macros/s/AKfycbycB07QSx3qwZ7QgPck_kZ2QQmCcXK61-Oe4DLpnbctw-iTLm_NI3prDbu2Mr8QllsF/exec", {
     method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain"
+    },
     body: JSON.stringify({ telefono })
   })
-  .then(r => r.text())
-  .then(txt => {
-    const msg = txt.split("|")[1] || "Gracias 🙂";
+  .then(() => {
+    // WhatsApp se abre SIEMPRE
+    const mensaje = "Gracias por tu compra 🎉 Tu punto fue registrado";
     window.location.href =
       "https://wa.me/5491136718516?text=" +
-      encodeURIComponent(msg);
+      encodeURIComponent(mensaje);
   })
-  .catch(() => alert("Error al registrar"));
+  .catch(() => {
+    alert("Error al registrar");
+  });
 }
 </script>
+
 
 
 </body>
