@@ -34,14 +34,33 @@
 
  <script>
 function registrarCliente() {
-  const telefono = document.getElementById("telefono").value.trim();
-  if (!telefono) {
+  const telefono = document.getElementById("telefono").value;
+
+  if (telefono.trim() === "") {
     alert("Ingresá tu celular");
     return;
   }
 
-  window.location.href =
-    "https://script.google.com/macros/s/AKfycbzD-FUdbVhKmI8PmojMr06WuhTRatnyogctrDfl8RQE2C3JUk5bJG7jBp9DhmGqYPuw/exec?telefono=" + encodeURIComponent(telefono);
+  fetch("https://script.google.com/macros/s/AKfycbwn0lk-_k20amC4DshknGHJrjtEo5Jng20cLWoggAZIFCi0Tm6QAWQ---moTZUxTDto/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      telefono: telefono,
+      origen: "QR"
+    })
+  })
+  .then(() => {
+  const mensaje = "Gracias por registrarte 🎉 Sumaste 1 punto";
+  const wa = "https://wa.me/5491136718516?text=" + encodeURIComponent(mensaje);
+  window.location.href = wa;
+})
+
+  .catch(err => {
+    alert("Error al registrar");
+    console.error(err);
+  });
 }
 </script>
 
