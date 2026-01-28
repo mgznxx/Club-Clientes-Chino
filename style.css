@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-  max-width: 400px;
+  max-width: 620px;
   margin: 80px auto;
   background: white;
   padding: 30px;
@@ -13,11 +13,11 @@ body {
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 input {
-  width: 100%;
+  width: 90%;
   padding: 15px;
   font-size: 18px;
   margin-bottom: 20px;
@@ -27,15 +27,19 @@ button {
   width: 100%;
   padding: 18px;
   font-size: 20px;
-  background: #2ecc71;
+  background: #3929e9;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 
+button:hover {
+  background: #155ec2;
+}
+
 button:active {
-  background: #27ae60;
+  background: #637de4;
 }
 
 #mensaje {
