@@ -3,9 +3,9 @@ body {
   background: #f2f2f2;
 }
 
-.contenedor {
+.container {
   max-width: 400px;
-  margin: 100px auto;
+  margin: 80px auto;
   background: white;
   padding: 30px;
   border-radius: 10px;
@@ -21,18 +21,16 @@ input {
   padding: 15px;
   font-size: 18px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
 }
 
 button {
   width: 100%;
-  padding: 20px;
+  padding: 18px;
   font-size: 20px;
   background: #2ecc71;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -43,6 +41,6 @@ button:active {
 #mensaje {
   margin-top: 20px;
   font-size: 18px;
-  color: #2ecc71;
 }
+
 

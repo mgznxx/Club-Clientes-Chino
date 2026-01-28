@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registro de Clientes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Club de Clientes</h1>
+
+    <input
+      type="tel"
+      id="telefono"
+      placeholder="Ingresá tu celular"
+    />
+
+    <button onclick="registrar()">Registrarse</button>
+
+    <p id="mensaje"></p>
+  </div>
+
+  <script>
+    function registrar() {
+      const telefono = document.getElementById("telefono").value;
+      const mensaje = document.getElementById("mensaje");
+
+      if (telefono.trim() === "") {
+        mensaje.innerText = "Ingresá tu celular";
+        mensaje.style.color = "red";
+        return;
+      }
+
+      fetch("https://script.google.com/macros/s/AKfycby1fFKAvWA9_ArB_snWIkf40b9pcaBRSOMdxYYrFn7i2WK9-B2YlzXABbu9S-adCrDa/exec?telefono=" + telefono)
+        .then(res => res.text())
+        .then(() => {
+          mensaje.innerText = "¡Gracias por registrarte! 🎉";
+          mensaje.style.color = "green";
+          document.getElementById("telefono").value = "";
+        })
+        .catch(() => {
+          mensaje.innerText = "Error al registrar";
+          mensaje.style.color = "red";
+        });
+    }
+  </script>
+
+</body>
+</html>
