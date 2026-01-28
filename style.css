@@ -44,7 +44,8 @@ button:active {
 
 #mensaje {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 
