@@ -2,68 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Club de Clientes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de clientes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>🎉 Club de Clientes</h1>
+  <div class="contenedor">
+    <h1>Club de Clientes</h1>
 
-    <p class="subtitle">
-      Escaneaste el QR.<br>
-      Sumate y participá de premios.
-    </p>
-
-    <input 
+    <input
       type="tel"
       id="telefono"
-      placeholder="Tu celular (ej: 11XXXXXXXX)"
+      placeholder="Ingresá tu celular"
     >
 
     <button onclick="registrarCliente()">
-      Unirme
+      REGISTRARSE
     </button>
 
-    <p class="small">
-      No necesitás descargar nada.<br>
-      Solo WhatsApp.
-    </p>
+    <p id="mensaje"></p>
   </div>
 
- <script>
-function registrarCliente() {
-  const telefono = document.getElementById("telefono").value.trim();
+  <script>
+    function registrarCliente() {
+      const telefono = document.getElementById("telefono").value.trim();
+      const mensaje = document.getElementById("mensaje");
 
-  if (!telefono) {
-    alert("Ingresá tu celular");
-    return;
-  }
+      if (!telefono) {
+        mensaje.innerText = "Por favor ingresá tu celular";
+        return;
+      }
 
-  fetch("https://script.google.com/macros/s/AKfycbycB07QSx3qwZ7QgPck_kZ2QQmCcXK61-Oe4DLpnbctw-iTLm_NI3prDbu2Mr8QllsF/exec", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "text/plain"
-    },
-    body: JSON.stringify({ telefono })
-  })
-  .then(() => {
-    // WhatsApp se abre SIEMPRE
-    const mensaje = "Gracias por tu compra 🎉 Tu punto fue registrado";
-    window.location.href =
-      "https://wa.me/5491136718516?text=" +
-      encodeURIComponent(mensaje);
-  })
-  .catch(() => {
-    alert("Error al registrar");
-  });
-}
-</script>
+      fetch("https://script.google.com/macros/s/AKfycbzeMcHhiZtgQB1Fp1Vk8RL6Du-UvH6cW4zTTzIGa1nXPObexkyyoHPdAqvlEZW3YDQV/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain"
+        },
+        body: JSON.stringify({
+          telefono: telefono,
+          origen: "QR"
+        })
+      });
 
-
+      mensaje.innerText = "Gracias por registrarte 🎉";
+      document.getElementById("telefono").value = "";
+    }
+  </script>
 
 </body>
 </html>
+
 
