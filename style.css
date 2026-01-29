@@ -15,12 +15,16 @@ body {
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   text-align: center;
-  max-width: 400px;
+  max-width: 90%;   /* más flexible que 400px */
   width: 100%;
 }
-.logo img{
-  width: 200px;
+
+.logo img {
+  width: 50%;       /* relativo al ancho del contenedor */
+  max-width: 250px; /* límite para pantallas grandes */
+  height: auto;
 }
+
 
 h1 {
   margin-bottom: 22px;
@@ -62,4 +66,32 @@ button:active {
   font-weight: 600;
 }
 
+/* Responsive ajustes */
+@media (max-width: 480px) {
+ .container {
+    padding: 20px;
+  }
+
+  .logo img {
+    width: 70%;     /* más grande en móviles */
+    max-width: none;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+
+  .logo h1 {
+    font-size: 20px;
+  }
+
+
+  .formulario input,
+  .formulario button {
+    font-size: 14px;
+  }
+
+
+}
 
