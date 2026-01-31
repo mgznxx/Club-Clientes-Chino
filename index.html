@@ -37,14 +37,14 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbxqqqdwEx6Cj7rn53zw90o53qm4NRa7kJlhirpZ9ptjI0vttDFDPFzRjBBm_2EfMlXH/exec?telefono=" + telefono)
+      fetch("https://script.google.com/macros/s/AKfycbwJH48F3Hrd0M9aK1asy2eEQxJMT8w4wb6TY8-UHPxkZfdDUJPFj8CaJdd3J5wjB68J/exec?telefono= " + telefono)
       .then(res => res.text())
       .then(texto => {
         const partes = texto.split("|");
 
         mensaje.innerText = partes[1] || "Listo";
         mensaje.style.color =
-          partes[0] === "OK" ? "green" : "orange";
+          partes[0] === "OK" ? "white" : "orange";
           document.getElementById("telefono").value = "";
         })
         .catch(() => {
