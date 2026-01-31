@@ -37,7 +37,7 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbwJH48F3Hrd0M9aK1asy2eEQxJMT8w4wb6TY8-UHPxkZfdDUJPFj8CaJdd3J5wjB68J/exec?telefono= " + telefono)
+      fetch("https://script.google.com/macros/s/AKfycbzVzLnPSSdJIyR06BnSGxwJWa39B4-QxhZa7RNCqAtkeTDDMTsPGWuVqwyqOAq5DoZv/exec?telefono= " + telefono)
       .then(res => res.text())
       .then(texto => {
         const partes = texto.split("|");
