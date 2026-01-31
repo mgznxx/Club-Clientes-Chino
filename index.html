@@ -37,11 +37,14 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycby1fFKAvWA9_ArB_snWIkf40b9pcaBRSOMdxYYrFn7i2WK9-B2YlzXABbu9S-adCrDa/exec?telefono=" + telefono)
-        .then(res => res.text())
-        .then(() => {
-          mensaje.innerText = "¡Gracias por registrarte! 🎉";
-          mensaje.style.color = "white";
+      fetch("https://script.google.com/macros/s/AKfycbxqqqdwEx6Cj7rn53zw90o53qm4NRa7kJlhirpZ9ptjI0vttDFDPFzRjBBm_2EfMlXH/exec?telefono=" + telefono)
+      .then(res => res.text())
+      .then(texto => {
+        const partes = texto.split("|");
+
+        mensaje.innerText = partes[1] || "Listo";
+        mensaje.style.color =
+          partes[0] === "OK" ? "green" : "orange";
           document.getElementById("telefono").value = "";
         })
         .catch(() => {
