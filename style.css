@@ -14,6 +14,10 @@ body {
   max-width: 400px;
   padding: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
 .logo img {
@@ -52,11 +56,12 @@ button {
 }
 
 button:hover {
-  background: #155ec2;
+  background-color: #e65c00;
+  
 }
 
 button:active {
-  background-color: #e65c00;
+  background: #155ec2;
 }
 
 
@@ -91,9 +96,9 @@ button:active {
   }
 
 
-  .logo h1 {
+  /* .logo h1 {
     font-size: 20px;
-  }
+  } */
 
 
   .formulario input,
