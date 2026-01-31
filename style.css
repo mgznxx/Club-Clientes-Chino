@@ -101,6 +101,13 @@ button:active {
     font-size: 14px;
   }
 
+  .footer-image {
+  width: 60%;
+  max-width: 300px;
+  padding-top: 50px;
+  margin: 0 auto;
+  display: block;
+}
 
 }
 
