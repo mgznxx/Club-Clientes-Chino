@@ -80,6 +80,27 @@ button:active {
   display: block;
 }
 
+.btn-whatsapp {
+  display: block;
+  background-color: #25D366;
+  color: white;
+  text-align: center;
+  padding: 18px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebe5d;
+}
+
+p {
+  color: white;
+}
+
 /* Responsive ajustes */
 @media (max-width: 480px) {
  .container {

@@ -9,10 +9,9 @@
 <body>
 
   <div class="container">
-	<div class="logo">
-        <img src="LogoClub.png" alt="Club de Clientes">
-      <h1></h1>
-        </div>
+    <div class="logo">
+      <img src="LogoClub.png" alt="Club de Clientes">
+    </div>
 
     <input
       type="tel"
@@ -23,9 +22,26 @@
     <button onclick="registrar()">Registrarse</button>
 
     <p id="mensaje"></p>
+
+    <!-- BLOQUE PROMO -->
+    <div id="promo" style="display:none; margin-top:20px;">
+      <p style="font-size:16px;">
+        ¿Querés que te avisemos si ganás y cuando haya nuevos sorteos?
+      </p>
+
+      <a
+        id="btnWhatsapp"
+        href="#"
+        target="_blank"
+        class="btn-whatsapp"
+      >
+        📲 Recibir novedades por WhatsApp
+      </a>
+    </div>
+
     <img src="chango.png" alt="Carrito de compras" class="footer-image" />
   </div>
-  
+
   <script>
     function registrar() {
       const telefono = document.getElementById("telefono").value;
@@ -37,21 +53,44 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbzbjEpmAi0gGLqnznWafRhhm1V-6Kak7XaMy3lVV1UsTnmU59wLXzgzqH_o5COGKIk/exec?telefono= " + telefono)
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzbjEpmAi0gGLqnznWafRhhm1V-6Kak7XaMy3lVV1UsTnmU59wLXzgzqH_o5COGKIk/exec?telefono=" +
+        telefono
+      )
       .then(res => res.text())
       .then(texto => {
-        const partes = texto.split("|");
-
-        mensaje.innerText = partes[1] || "Listo";
-        mensaje.style.color =
-          partes[0] === "OK" ? "white" : "orange";
-          document.getElementById("telefono").value = "";
-        })
-        .catch(() => {
-          mensaje.innerText = "Error al registrar ❌";
+        if (texto.startsWith("OK|")) {
+          const msg = texto.replace("OK|", "");
+          mensaje.innerText = msg;
           mensaje.style.color = "white";
-        });
+
+          // Mostrar promo
+          document.getElementById("promo").style.display = "block";
+
+          // Link WhatsApp
+          const numeroComercio = "5491136718516";
+          const textoWa =
+            "Hola 👋\n" +
+  "Gracias por registrarme en el Club de Clientes 🎉\n" +
+  "Quiero recibir novedades de promos y sorteos 😊";
+
+          document.getElementById("btnWhatsapp").href =
+            "https://wa.me/5491136718516?text=" +
+            encodeURIComponent(textoWa);
+
+          document.getElementById("telefono").value = "";
+        } else {
+          mensaje.innerText = "Error al registrar ❌";
+          mensaje.style.color = "orange";
+        }
+      })
+      .catch(() => {
+        mensaje.innerText = "Error de conexión ❌";
+        mensaje.style.color = "orange";
+      });
     }
   </script>
+
 </body>
 </html>
+
