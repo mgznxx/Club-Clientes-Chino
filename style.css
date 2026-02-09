@@ -36,6 +36,10 @@ h1 {
   color:rgb(252, 251, 250)
 }
 
+h2 {
+  color: #7e8ef1;
+}
+
 input {
   width: 90%;
   padding: 10px;
@@ -46,12 +50,13 @@ input {
 }
 
 button {
+  width: 95%;
   padding: 14px;
   font-size: 18px;
   background-color: #ff6600;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
@@ -82,24 +87,183 @@ button:active {
 
 .btn-whatsapp {
   display: block;
-  background-color: #25D366;
+  background-color: #33ae64;
   color: white;
   text-align: center;
   padding: 18px;
   border-radius: 10px;
   font-size: 18px;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-decoration: none;
   margin-top: 10px;
 }
 
 .btn-whatsapp:hover {
-  background-color: #1ebe5d;
+  background-color: #19753e;
 }
 
 p {
-  color: white;
+  color: rgb(133, 132, 132);
 }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-card {
+  background: #fff;
+  width: 90%;
+  max-width: 360px;
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  animation: aparecer 0.35s ease;
+}
+
+.modal-mensaje {
+  margin: 16px 0 24px;
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+}
+
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-check {
+  width: 60px;
+  height: 60px;
+  background: #3ecf8e;
+  color: #fff;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  font-size: 32px;
+  line-height: 60px;
+}
+
+.modal-box {
+  background: #f3f6ff;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.punto {
+  font-size: 16px;
+}
+
+.total-label {
+  font-size: 13px;
+  color: #666;
+}
+
+.total {
+  font-size: 28px;
+  font-weight: bold;
+  color: #4a5cff;
+}
+
+.btn-continuar {
+  width: 100%;
+  background: linear-gradient(90deg,#5b6cff,#4a5cff);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-whatsapp {
+  display: block;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+
+/* ANIMACION */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- INTRO ---------- */
+
+.container.init {
+  justify-content: center;
+}
+
+/* Logo centrado al inicio */
+.logo-intro {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: glow 0.5s ease-in-out infinite alternate;
+}
+
+/* Destello suave */
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px #ffffffc4);
+  }
+  to {
+    filter: drop-shadow(0 0 28px #ffffff);
+  }
+}
+
+/* Contenido oculto al inicio */
+.contenido {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+/* Estado final */
+.container.loaded .logo-intro {
+  position: relative;
+  top: 0;
+  transform: translateY(0);
+  animation: none;
+  transition: all 0.8s ease;
+}
+
+.container.loaded .contenido {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 
 /* Responsive ajustes */
 @media (max-width: 480px) {
@@ -115,13 +279,7 @@ p {
   body {
     padding: 10px;
   }
-
-
-  /* .logo h1 {
-    font-size: 20px;
-  } */
-
-
+ 
   .formulario input,
   .formulario button {
     font-size: 14px;

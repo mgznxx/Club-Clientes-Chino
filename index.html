@@ -2,96 +2,231 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registro de Clientes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club de Clientes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <div class="container">
-    <div class="logo">
-      <img src="LogoClub.png" alt="Club de Clientes">
+  <div class="container init">
+
+    <div class="logo logo-intro">
+      <img src="LogoClub.png" alt="Club de Clientes" />
     </div>
 
-    <input
-      type="tel"
-      id="telefono"
-      placeholder="Ingresá tu celular ej: 1123568974"
-    />
+    <div class="contenido">
+      <input
+        type="tel"
+        id="telefono"
+        placeholder="Ingresá tu celular (ej: 1123456789)"
+      />
 
-    <button onclick="registrar()">Registrarse</button>
-
-    <p id="mensaje"></p>
-
-    <!-- BLOQUE PROMO -->
-    <div id="promo" style="display:none; margin-top:20px;">
-      <p style="font-size:16px;">
-        ¿Querés que te avisemos si ganás y cuando haya nuevos sorteos?
-      </p>
-
-      <a
-        id="btnWhatsapp"
-        href="#"
-        target="_blank"
-        class="btn-whatsapp"
+      <button
+        type="button"
+        id="btnRegistrar"
+        onclick="registrar()"
       >
-        📲 Recibir novedades por WhatsApp
-      </a>
+        Registrarse
+      </button>
+
+      <img src="chango.png" class="footer-image" />
     </div>
 
-    <img src="chango.png" alt="Carrito de compras" class="footer-image" />
   </div>
 
-  <script>
-    function registrar() {
-      const telefono = document.getElementById("telefono").value;
-      const mensaje = document.getElementById("mensaje");
+  <!-- MODAL REGISTRO / COMPRA -->
+<div class="modal" id="modalRegistro" data-registro="false">
+  <div class="modal-card">
 
-      if (telefono.trim() === "") {
-        mensaje.innerText = "Ingresá tu celular";
-        mensaje.style.color = "red";
-        return;
-      }
+    <div class="modal-check">✓</div>
+      <h2 id="modalTitulo">Mensaje</h2>
+      <p id="modalMensaje" class="modal-mensaje"></p>
 
-      fetch(
-        "https://script.google.com/macros/s/AKfycbzbjEpmAi0gGLqnznWafRhhm1V-6Kak7XaMy3lVV1UsTnmU59wLXzgzqH_o5COGKIk/exec?telefono=" +
-        telefono
-      )
-      .then(res => res.text())
-      .then(texto => {
-        if (texto.startsWith("OK|")) {
-          const msg = texto.replace("OK|", "");
-          mensaje.innerText = msg;
-          mensaje.style.color = "white";
+    <div class="modal-box">
+      <p class="punto">⭐ Ganaste <b>1 punto</b></p>
+      <p class="total-label">Total de puntos</p>
+      <p class="total" id="totalPuntos">0</p>
+    </div>
 
-          // Mostrar promo
-          document.getElementById("promo").style.display = "block";
-          document.querySelector(".footer-image").style.display = "none";
+    <button
+      type="button"
+      class="btn-continuar"
+      id="btnModal"
+      onclick="accionModal()"
+    >
+      Continuar
+    </button>
 
-          // Link WhatsApp
-          const numeroComercio = "5491136718516";
-          const textoWa =
-            "Hola 👋\n" +
-  "Gracias por registrarme en el Club de Clientes 🎉\n" +
-  "Quiero recibir novedades de promos y sorteos 😊";
+  </div>
+</div>
 
-          document.getElementById("btnWhatsapp").href =
-            "https://wa.me/5491136718516?text=" +
-            encodeURIComponent(textoWa);
+<!-- MODAL PROMO (SEGUNDO MODAL) -->
+<div class="modal" id="modalPromo">
+  <div class="modal-card">
 
-          document.getElementById("telefono").value = "";
-        } else {
-          mensaje.innerText = "Error al registrar ❌";
-          mensaje.style.color = "orange";
-        }
-      })
-      .catch(() => {
-        mensaje.innerText = "Error de conexión ❌";
-        mensaje.style.color = "orange";
-      });
-    }
-  </script>
+    <h2>🎁 ¿Querés recibir novedades?</h2>
+    <h3>Sumate a nuestro WhatsApp</h3>
+
+    <p>
+      Promociones exclusivas, sorteos y beneficios del club.
+    </p>
+
+    <a
+      href="https://wa.me/5491136718516"
+      target="_blank"
+      class="btn-whatsapp"
+    >
+      Unirme al WhatsApp
+    </a>
+
+    <button
+      type="button"
+      class="btn-continuar"
+      onclick="cerrarPromo()"
+    >
+      Cerrar
+    </button>
+
+  </div>
+</div>
+
+
+  </div>
+</div>
+ 
+ <script>
+let esRegistro = false;
+
+ function registrar() {
+  const telefono = document.getElementById("telefono").value.trim();
+
+  if (!telefono) {
+    abrirModal(
+      "error",
+      "Por favor ingresá tu número de celular",
+      "—"
+    );
+    return;
+  }
+
+  fetch(
+    "https://script.google.com/macros/s/AKfycbzOyQ3k59GUTSh0aMbJt5iJ3chu5snlFkUfV1Y5Kb2KerhTT2wnIzkDWAcCGPwJuXtP/exec?telefono=" +
+    telefono
+  )
+    .then(res => res.text())
+    .then(texto => {
+      const limpio = texto.replace("OK|", "").trim();
+      const mensaje = limpio.split("\n")[0];
+
+      const match = limpio.match(/Total de puntos:\s*(\d+)/);
+      const total = match ? match[1] : "0";
+
+      const esRegistro = mensaje.toLowerCase().includes("registr");
+
+      abrirModal(
+        esRegistro ? "registro" : "compra",
+        mensaje,
+        total
+      );
+    })
+    .catch(() => {
+      abrirModal(
+        "error",
+        "Error de conexión. Intentá nuevamente",
+        "—"
+      );
+    });
+}
+
+
+ function abrirModal(tipo, mensaje, total) {
+  const modal = document.getElementById("modalRegistro");
+  const titulo = document.getElementById("modalTitulo");
+  const mensajeTxt = document.getElementById("modalMensaje");
+  const puntos = document.getElementById("totalPuntos");
+  const btn = document.getElementById("btnModal");
+  const box = document.querySelector(".modal-box");
+  const check = document.querySelector(".modal-check");
+
+  if (!modal || !titulo || !btn) return;
+
+  modal.dataset.tipo = tipo;
+
+  // RESET
+  mensajeTxt.innerText = "";
+  box.style.display = "none";
+  check.style.display = "none";
+
+  if (tipo === "error") {
+    titulo.innerText = "⚠️ Atención";
+    mensajeTxt.innerText = mensaje;
+    btn.innerText = "Cerrar";
+  }
+
+  if (tipo === "registro") {
+    titulo.innerText = "¡Gracias por registrarte!";
+    puntos.innerText = total;
+    btn.innerText = "Continuar";
+    box.style.display = "block";
+    check.style.display = "flex";
+  }
+
+  if (tipo === "compra") {
+    titulo.innerText = "¡Gracias por tu compra!";
+    puntos.innerText = total;
+    btn.innerText = "Cerrar";
+    box.style.display = "block";
+    check.style.display = "flex";
+  }
+
+  modal.classList.add("active");
+}
+ 
+
+
+function accionModal() {
+  const modal = document.getElementById("modalRegistro");
+  const tipo = modal.dataset.tipo;
+
+  if (tipo === "registro") {
+    modal.classList.remove("active");
+    setTimeout(() => {
+      document.getElementById("modalPromo").classList.add("active");
+    }, 200);
+  } else {
+    modal.classList.remove("active");
+    limpiarInicio();
+  }
+}
+
+
+
+
+function cerrarPromo() {
+  document.getElementById("modalPromo").classList.remove("active");
+  limpiarInicio();
+}
+
+function cerrarTodo() {
+  document.getElementById("modalRegistro").classList.remove("active");
+  document.getElementById("modalPromo").classList.remove("active");
+  limpiarInicio();
+}
+
+
+function limpiarInicio() {
+  document.getElementById("telefono").value = "";
+}
+</script>
+
+<script>
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.querySelector(".container").classList.add("loaded");
+    }, 1800);
+  });
+</script>
 
 </body>
 </html>
-
