@@ -72,14 +72,10 @@
       Promociones exclusivas, sorteos y beneficios del club.
     </p>
 
-    <a
-      href="https://wa.me/5491136718516?text=Hola%20👋%0AGracias%20por%20registrarme%20en%20el%20Club%20de%20Clientes%20🎉%0APor%20acá%20quiero%20recibir%20novedades%20y%20sorteos"
-      target="_blank"
-      rel="noopener"
-      class="btn-whatsapp"
-      >
-      Unirme al WhatsApp
-    </a>
+     <button class="btn-whatsapp" onclick="unirseWhatsapp()">
+        Unirme al WhatsApp
+    </button>
+
 
 
 
@@ -229,7 +225,7 @@ function abrirWhatsapp() {
   if (!telefono) return;
 
   // avisamos a Google Sheets
-  fetch("https://script.google.com/macros/s/AKfycbx4dtcTW5Mznrt6R0PtTHU3Yz9g-gSouSPGwNHPibw3Vqra92M9KWSTHWuCEcDIdQcA/exec?telefono=${telefono}&whatsapp=SI");
+  fetch("https://script.google.com/macros/s/AKfycbwomV6mwMzWtpdO7ER7BxJ8TGR4Md0zWimnu8MCBiiIXrlXN7XLAfiJQNVSw0rIySXJ/exec?telefono=${telefono}&whatsapp=SI");
 
   // abrimos WhatsApp
   const mensaje = encodeURIComponent(
@@ -253,6 +249,31 @@ function abrirWhatsapp() {
     }, 1800);
   });
 </script>
+
+<script>
+function unirseWhatsapp() {
+  const tel = document.getElementById("telefono").value.replace(/\D/g, "");
+
+  // 1️⃣ Avisar a Google Sheets
+  fetch(
+    "https://TU_SCRIPT_URL?telefono=" + tel + "&whatsapp=SI"
+  )
+  .then(() => {
+    // 2️⃣ Esperar un poquito
+    setTimeout(() => {
+      // 3️⃣ Abrir WhatsApp
+      const url =
+        "https://wa.me/5491136718516?text=" +
+        encodeURIComponent(
+          "Hola 👋\nGracias por registrarme en el Club de Clientes 🎉\nPor acá quiero recibir novedades y sorteos"
+        );
+
+      window.location.href = url;
+    }, 400);
+  });
+}
+</script>
+
 
 </body>
 </html>
