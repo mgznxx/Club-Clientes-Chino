@@ -73,12 +73,15 @@
     </p>
 
     <a
-      href="https://wa.me/5491136718516"
+      href="https://wa.me/5491136718516?text=Hola%20👋%0AGracias%20por%20registrarme%20en%20el%20Club%20de%20Clientes%20🎉%0APor%20acá%20quiero%20recibir%20novedades%20y%20sorteos"
       target="_blank"
+      rel="noopener"
       class="btn-whatsapp"
-    >
+      >
       Unirme al WhatsApp
     </a>
+
+
 
     <button
       type="button"
@@ -218,6 +221,29 @@ function cerrarTodo() {
 function limpiarInicio() {
   document.getElementById("telefono").value = "";
 }
+
+// ===== WHATSAPP =====
+  function abrirWhatsapp() {
+  const numero = "5491136718516";
+
+  const texto =
+    "Hola 👋\n" +
+    "Gracias por registrarme en el Club de Clientes 🎉\n" +
+    "Por acá quiero recibir novedades y futuros sorteos 😊";
+
+  const link =
+    "https://wa.me/" +
+    numero +
+    "?text=" +
+    encodeURIComponent(texto);
+
+  marcarWhatsapp();   // guarda SI en Google Sheets
+
+  // 👇 ESTO ES LA CLAVE
+  window.location.href = link;
+}
+
+
 </script>
 
 <script>
