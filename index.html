@@ -223,25 +223,25 @@ function limpiarInicio() {
 }
 
 // ===== WHATSAPP =====
-  function abrirWhatsapp() {
-  const numero = "5491136718516";
+function abrirWhatsapp() {
+  const telefono = document.getElementById("telefono").value.trim();
 
-  const texto =
-    "Hola 👋\n" +
-    "Gracias por registrarme en el Club de Clientes 🎉\n" +
-    "Por acá quiero recibir novedades y futuros sorteos 😊";
+  if (!telefono) return;
 
-  const link =
-    "https://wa.me/" +
-    numero +
-    "?text=" +
-    encodeURIComponent(texto);
+  // avisamos a Google Sheets
+  fetch("https://script.google.com/macros/s/AKfycbyXHo_Ex-lUVM3k7Hh2MnHjinIHV_VBpYkzQ_IxORFITzpAmpDrz6xxvh5jLviiBzp8/exec?telefono=${telefono}&whatsapp=SI");
 
-  marcarWhatsapp();   // guarda SI en Google Sheets
+  // abrimos WhatsApp
+  const mensaje = encodeURIComponent(
+    "Hola 👋 Gracias por registrarme en el Club de Clientes 🎉"
+  );
 
-  // 👇 ESTO ES LA CLAVE
-  window.location.href = link;
+  window.open(
+    `https://wa.me/5491136718516?text=${mensaje}`,
+    "_blank"
+  );
 }
+
 
 
 </script>
