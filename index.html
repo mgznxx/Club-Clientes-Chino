@@ -229,7 +229,7 @@ function abrirWhatsapp() {
   if (!telefono) return;
 
   // avisamos a Google Sheets
-  fetch("https://script.google.com/macros/s/AKfycbz1gMlCDvBltrOegfPodGO3auVPkgx261vsGrUDaWBiJ8N8AVuqpyozW_EzihIMzj0/exec?telefono=${telefono}&whatsapp=SI");
+  fetch("https://script.google.com/macros/s/AKfycbx4dtcTW5Mznrt6R0PtTHU3Yz9g-gSouSPGwNHPibw3Vqra92M9KWSTHWuCEcDIdQcA/exec?telefono=${telefono}&whatsapp=SI");
 
   // abrimos WhatsApp
   const mensaje = encodeURIComponent(
