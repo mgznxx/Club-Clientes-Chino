@@ -254,25 +254,25 @@ function abrirWhatsapp() {
 function unirseWhatsapp() {
   const tel = document.getElementById("telefono").value.replace(/\D/g, "");
 
-  // 1️⃣ Avisar a Google Sheets
-  fetch(
-    "https://TU_SCRIPT_URL?telefono=" + tel + "&whatsapp=SI"
-  )
-  .then(() => {
-    // 2️⃣ Esperar un poquito
-    setTimeout(() => {
-      // 3️⃣ Abrir WhatsApp
-      const url =
-        "https://wa.me/5491136718516?text=" +
-        encodeURIComponent(
-          "Hola 👋\nGracias por registrarme en el Club de Clientes 🎉\nPor acá quiero recibir novedades y sorteos"
-        );
+  const mensaje = 
+    "Hola 👋\n" +
+    "Gracias por registrarme en el Club de Clientes 🎉\n" +
+    "Por acá quiero recibir novedades y sorteos";
 
-      window.location.href = url;
-    }, 400);
-  });
+  const waUrl =
+    "https://wa.me/5491136718516?text=" +
+    encodeURIComponent(mensaje);
+
+  // 1️⃣ ABRIR WHATSAPP (esto NO puede esperar)
+  window.location.href = waUrl;
+
+  // 2️⃣ AVISAR A GOOGLE SHEETS EN BACKGROUND
+  setTimeout(() => {
+    fetch("https://script.google.com/macros/s/AKfycbxrRxHFg5blmU3xZAZpinwtrz4argobXaV36XMpiveMi2jYlWjhTa_gqmAmn0-8ercZ/exec?telefono=" + tel + "&whatsapp=SI");
+  }, 500);
 }
 </script>
+
 
 
 </body>
